@@ -59,42 +59,76 @@ Port 443 —> Target Group B (HTTPS)
     - Path (e.g. /health)
     - Port
 
-**🔐 ALB Security**
-ALB is placed in public subnets (with internet access).
+**5. Sticky Sessions (Session Affinity)**
+-  ALB supports sticky sessions!
+- When enabled, the client’s requests are always routed to the same target.
+- Uses a cookie called AWSALB.
+- You enable it per target group.
 
-Backend EC2s usually in private subnets.
+✅ Use case:
+    * Useful for applications that store session data locally (not in Redis/DB).
 
-Use Security Groups to control who can access ALB and what it can access.
+**6. ✅ SSL/TLS Termination**
+- ALB supports SSL/TLS termination.
+- You can upload SSL certificates using AWS Certificate Manager (ACM).
+- ALB handles encryption/decryption, so backend EC2s get plain HTTP.
+✅ Use case:
+     * Secures frontend traffic (HTTPS), but keeps backend communication simple.
 
-🧪 Health Checks
-ALB continuously checks targets’ health:
+**7. WebSocket Support**
+- ALB supports WebSocket-based apps (like chat apps).
 
-If healthy → sends traffic
+**8. Redirects and Fixed Responses**
+- Redirect HTTP → HTTPS
+- Return static messages (e.g. 403 Maintenance Page)
 
-If unhealthy → skips that instance
+**9. WAF Integration**
+- AWS Web Application Firewall can be attached to ALB for DDoS and bot protection.
 
-You define:
+**10. Logging & Monitoring**
+- Access logs can be saved in S3.
+- Metrics available via CloudWatch (request count, 5xx errors, latency).
+- Supports AWS X-Ray for request tracing.
 
-Protocol (HTTP/HTTPS)
+**11. Security**
+- Use Security Groups for ALB to allow incoming traffic.
+- ALB itself sits in public subnet, targets in private subnets.
 
-Path (e.g. /health)
+**12. IPv6 Support**
+- You can enable IPv6 for your ALB.
 
-Port
+# When to Use ALB?
+### Use AWS ALB when:
+* You need smart routing based on path or hostname.
+* You want to host multiple services on same domain.
+* You want HTTPS with SSL certificate support.
+* You need sticky sessions.
+* You need container-based apps (ECS/EKS).
+* You want to integrate with Lambda functions.
 
-📈 ALB Monitoring
-Use:
+### Comparison Recap: ALB vs NLB vs CLB
 
-CloudWatch Metrics (requests count, error rates, latency)
+| Feature         | ALB            | NLB                            | CLB              |
+| --------------- | -------------- | ------------------------------ | ---------------- |
+| Layer           | 7 (HTTP/HTTPS) | 4 (TCP/UDP)                    | 4 & 7            |
+| Sticky Sessions | ✅ Yes          | ❌ No                           | ✅ Yes            |
+| SSL Termination | ✅ Yes          | ✅ (Limited via TLS listener)   | ✅ Yes            |
+| WebSocket       | ✅ Yes          | ✅ Yes                          | ❌ No             |
+| Lambda Support  | ✅ Yes          | ❌ No                           | ❌ No             |
+| Best For        | Web apps, APIs | Gaming, real-time, low-latency | Legacy workloads |
 
-Access Logs (store logs in S3)
+### Real-World Example (Simplified)
+**Let’s say:**
+    - / → React frontend → EC2 (public)
+    - /api → Node.js backend → EC2 (private)
+    - /admin → Admin UI → ECS container
+    - All use one ALB, with path-based routing and SSL from ACM
 
-AWS X-Ray (for tracing)
-
-🛠️ Real-World Use Case
-Let's say you’re running a website:
-
-Frontend React app on /
-
-Backend Node.js API on /api
-
-Admin panel on admin.example.com
+**You can:**
+- Use SSL termination at ALB
+- Enable sticky sessions on /api target group
+- Use CloudWatch to monitor ALB health
+- Let me know if you'd like:
+- Terraform code for ALB setup
+- Architecture diagram
+- Interview-based summary of this content
