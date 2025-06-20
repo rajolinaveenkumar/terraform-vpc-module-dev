@@ -10,7 +10,7 @@ It is smart and content-aware — meaning it understands URLs, headers, and cook
 ### Where is ALB used?
 You use ALB when you want to:
 
-- Balance traffic between web servers
++ Balance traffic between web servers
 
 - Host multiple apps on same domain (path-based routing)
 
