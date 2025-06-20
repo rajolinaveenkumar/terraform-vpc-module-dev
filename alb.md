@@ -9,9 +9,9 @@ It is smart and content-aware — meaning it understands URLs, headers, and cook
 
 **OR**
 * ALB stands for Application Load Balancer, a Layer 7 load balancer in AWS that:
-* Distributes HTTP/HTTPS traffic across multiple targets (EC2, ECS, Lambda)
-* Understands application-level data like paths, headers, cookies
-* Supports routing rules, SSL termination, sticky sessions, etc.
+    * Distributes HTTP/HTTPS traffic across multiple targets (EC2, ECS, Lambda)
+    * Understands application-level data like paths, headers, cookies
+    * Supports routing rules, SSL termination, sticky sessions, etc.
 
 
 ### Where is ALB used?
@@ -41,7 +41,7 @@ Port 443 —> Target Group B (HTTPS)
     - Path-based (e.g., /api/* goes to backend)
     - Host-based (e.g., admin.example.com goes to admin app)
 
-4. Target Groups
+**4. Target Groups**
 * Group of resources ALB forwards requests to.
 * Can contain:
         - EC2 instances
@@ -50,7 +50,16 @@ Port 443 —> Target Group B (HTTPS)
         - IPs
     Health checks are configured here.
 
-🔐 ALB Security
+**5. Health Checks**
+* ALB continuously checks targets’ health:
+    - If healthy → sends traffic
+    - If unhealthy → skips that instance
+* You define:
+    - Protocol (HTTP/HTTPS)
+    - Path (e.g. /health)
+    - Port
+
+**🔐 ALB Security**
 ALB is placed in public subnets (with internet access).
 
 Backend EC2s usually in private subnets.
