@@ -6,7 +6,17 @@ output "igw_info" {
   value = aws_internet_gateway.igw
 }
 
+output "public_subnet" {
+  value = aws_subnet.public_subnet
+}
 
+output "private_subnet" {
+  value = aws_subnet.private_subnet
+}
+
+output "database_subnet" {
+  value = aws_subnet.database_subnet
+}
 
 output "az_info" {
     value = data.aws_availability_zones.available.names
