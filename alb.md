@@ -17,7 +17,7 @@ You use ALB when you want to:
 - Monitor traffic using CloudWatch
 
 ### Key ALB Components
-1. Load Balancer
+**1. Load Balancer**
 - The main ALB resource, public or internal.
 - Exposes a DNS name to receive traffic (e.g. my-app-alb-123456.ap-south-1.elb.amazonaws.com).
 
