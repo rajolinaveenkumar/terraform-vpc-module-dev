@@ -44,10 +44,10 @@ Port 443 —> Target Group B (HTTPS)
 **4. Target Groups**
 * Group of resources ALB forwards requests to.
 * Can contain:
-        - EC2 instances
-        - ECS services
-        - Lambda functions
-        - IPs
+    - EC2 instances
+    - ECS services
+    - Lambda functions
+    - IPs
     Health checks are configured here.
 
 **5. Health Checks**
@@ -66,14 +66,14 @@ Port 443 —> Target Group B (HTTPS)
 - You enable it per target group.
 
 ✅ Use case:
-    * Useful for applications that store session data locally (not in Redis/DB).
+*      Useful for applications that store session data locally (not in Redis/DB).
 
 **6. ✅ SSL/TLS Termination**
 - ALB supports SSL/TLS termination.
 - You can upload SSL certificates using AWS Certificate Manager (ACM).
 - ALB handles encryption/decryption, so backend EC2s get plain HTTP.
 ✅ Use case:
-     * Secures frontend traffic (HTTPS), but keeps backend communication simple.
+*      Secures frontend traffic (HTTPS), but keeps backend communication simple.
 
 **7. WebSocket Support**
 - ALB supports WebSocket-based apps (like chat apps).
@@ -119,10 +119,10 @@ Port 443 —> Target Group B (HTTPS)
 
 ### Real-World Example (Simplified)
 **Let’s say:**
-    - / → React frontend → EC2 (public)
-    - /api → Node.js backend → EC2 (private)
-    - /admin → Admin UI → ECS container
-    - All use one ALB, with path-based routing and SSL from ACM
+- / → React frontend → EC2 (public)
+- /api → Node.js backend → EC2 (private)
+- /admin → Admin UI → ECS container
+- All use one ALB, with path-based routing and SSL from ACM
 
 **You can:**
 - Use SSL termination at ALB
