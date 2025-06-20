@@ -6,6 +6,7 @@
     - IP addresses
 
 It is smart and content-aware — meaning it understands URLs, headers, and cookies.
+
 **OR**
 * ALB stands for Application Load Balancer, a Layer 7 load balancer in AWS that:
 * Distributes HTTP/HTTPS traffic across multiple targets (EC2, ECS, Lambda)
