@@ -10,25 +10,22 @@ It is smart and content-aware — meaning it understands URLs, headers, and cook
 ### Where is ALB used?
 You use ALB when you want to:
 
-+ Balance traffic between web servers
-
+- Balance traffic between web servers
 - Host multiple apps on same domain (path-based routing)
+- Handle HTTPS traffic securely
+- Do blue-green or canary deployments (target groups)
+- Monitor traffic using CloudWatch
 
-Handle HTTPS traffic securely
-
-Do blue-green or canary deployments (target groups)
-
-Monitor traffic using CloudWatch
-
-📦 Key ALB Components
+### Key ALB Components
 1. Load Balancer
-The main ALB resource, public or internal.
-
-Exposes a DNS name to receive traffic (e.g. my-app-alb-123456.ap-south-1.elb.amazonaws.com).
+- The main ALB resource, public or internal.
+- Exposes a DNS name to receive traffic (e.g. my-app-alb-123456.ap-south-1.elb.amazonaws.com).
 
 2. Listeners
-Listens on a port (usually 80 or 443).
-
-Routes traffic to target groups based on rules.
-
+- Listens on a port (usually 80 or 443).
+- Routes traffic to target groups based on rules.
 Example:
+```
+Port 80 —> Target Group A
+Port 443 —> Target Group B (HTTPS)
+```
